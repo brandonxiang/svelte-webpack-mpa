@@ -14,7 +14,7 @@ module.exports = {
 		extensions: ['.mjs', '.js', '.svelte']
 	},
 	output: {
-		path: __dirname + '/build',
+		path: __dirname + '/dist',
 		filename: '[name].js',
 		chunkFilename: '[name].[id].js'
 	},
@@ -58,7 +58,7 @@ module.exports = {
 	],
 	devtool: prod ? false: 'source-map',
 	devServer: {
-		contentBase: path.join(__dirname, 'build'),
+		contentBase: path.join(__dirname, 'dist'),
 		compress: true,
 		port: 9000,
 		open: true
