@@ -20,6 +20,8 @@ yarn
 npm i
 ```
 
+Your static files can be placed into `public` folder.
+
 ## Development
 
 ```shell
