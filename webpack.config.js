@@ -71,6 +71,7 @@ module.exports = function() {
              * */
             prod ? MiniCssExtractPlugin.loader : 'style-loader',
             'css-loader',
+            'postcss-loader',
           ],
         },
       ],
