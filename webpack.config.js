@@ -1,6 +1,8 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 const path = require('path');
 const globby = require('globby');
 
@@ -34,7 +36,7 @@ function multiHtmlPlugin(entries) {
   });
 }
 
-module.exports = function() {
+module.exports = function(env) {
   const entry = getEntries();
 
   const htmlPlugins = multiHtmlPlugin(entry);
@@ -83,6 +85,10 @@ module.exports = function() {
       }),
       new CopyPlugin([{ from: './public', to: './public' }]),
       ...htmlPlugins,
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        openAnalyzer: !!(env && env.analyze),
+      }),
     ],
     devtool: prod ? false : 'source-map',
     devServer: {
