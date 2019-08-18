@@ -50,4 +50,4 @@ npm run analyze
 
 ## LICENSE
 
-[MIT](./LICENSE)
+[MIT](./LICENSE) @brandonxiang
