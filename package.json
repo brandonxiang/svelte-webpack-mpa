@@ -1,7 +1,7 @@
 {
   "name": "svelte-webpack-template",
   "version": "1.0.0",
-  "main": "index.js",
+  "private": true,
   "repository": "https://github.com/brandonxiang/svelte-webpack-template.git",
   "author": "brandonxiang <1542453460@qq.com>",
   "license": "MIT",
