@@ -61,6 +61,9 @@ module.exports = function(env) {
             options: {
               emitCss: true,
               hotReload: true,
+              preprocess: require('svelte-preprocess')({
+                postcss: true,
+              }),
             },
           },
         },
@@ -73,7 +76,6 @@ module.exports = function(env) {
              * */
             prod ? MiniCssExtractPlugin.loader : 'style-loader',
             'css-loader',
-            'postcss-loader',
           ],
         },
       ],
