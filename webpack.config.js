@@ -82,7 +82,7 @@ module.exports = function(env) {
           ],
         },
         {
-          test: /\.m?js$/,
+          test: /\.js$/,
           use: [babelLoader],
           exclude: /node_modules\/(?!svelte)/,
         },
