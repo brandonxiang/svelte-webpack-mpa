@@ -32,9 +32,20 @@ function multiHtmlPlugin(entries) {
       filename: `${name}.html`,
       template: './public/index.html',
       chunks: [name],
+      minify: prod
+        ? {
+            removeComments: true,
+            collapseWhitespace: true,
+            minifyCSS: true,
+          }
+        : true,
     });
   });
 }
+
+const babelLoader = {
+  loader: 'babel-loader',
+};
 
 module.exports = function(env) {
   const entry = getEntries();
@@ -56,16 +67,24 @@ module.exports = function(env) {
         {
           test: /\.svelte$/,
           exclude: /node_modules/,
-          use: {
-            loader: 'svelte-loader',
-            options: {
-              emitCss: true,
-              hotReload: true,
-              preprocess: require('svelte-preprocess')({
-                postcss: true,
-              }),
+          use: [
+            babelLoader,
+            {
+              loader: 'svelte-loader',
+              options: {
+                emitCss: true,
+                hotReload: true,
+                preprocess: require('svelte-preprocess')({
+                  postcss: true,
+                }),
+              },
             },
-          },
+          ],
+        },
+        {
+          test: /\.m?js$/,
+          use: [babelLoader],
+          exclude: /node_modules\/(?!svelte)/,
         },
         {
           test: /\.css$/,
