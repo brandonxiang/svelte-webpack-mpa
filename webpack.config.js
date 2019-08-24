@@ -68,7 +68,6 @@ module.exports = function(env) {
           test: /\.svelte$/,
           exclude: /node_modules/,
           use: [
-            babelLoader,
             {
               loader: 'svelte-loader',
               options: {
