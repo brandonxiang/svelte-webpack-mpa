@@ -1,8 +1,4 @@
 module.exports = {
-  extends: [
-    "standard",
-    "plugin:prettier/recommended"
-  ],
   parserOptions: {
     ecmaVersion: 2019,
     sourceType: 'module'

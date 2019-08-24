@@ -11,7 +11,7 @@
 
   var marker = L.marker([lat, lon]).addTo(map);
 
-  if(label) {
+  if (label) {
     marker.bindPopup(label);
   }
 </script>

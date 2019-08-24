@@ -37,13 +37,6 @@
   });
 </script>
 
-<style>
-  div {
-    width: 100%;
-    height: 100%;
-  }
-</style>
-
 <svelte:head>
   <link
     rel="stylesheet"
@@ -55,3 +48,10 @@
     <slot />
   {/if}
 </div>
+
+<style>
+  div {
+    width: 100%;
+    height: 100%;
+  }
+</style>

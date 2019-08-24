@@ -3,13 +3,6 @@
   import MapMarker from './MapMarker.svelte';
 </script>
 
-<style>
-  :global(body) {
-    margin: 0;
-    padding: 0;
-  }
-</style>
-
 <Map lat={35} lon={-84} zoom={3.5}>
   <MapMarker lat={37.8225} lon={-122.0024} label="Svelte Body Shaping" />
   <MapMarker
@@ -24,3 +17,10 @@
   <MapMarker lat={40.6483} lon={-74.0237} label="Svelte Brands LLC" />
   <MapMarker lat={40.6986} lon={-74.41} label="Svelte Medical Systems" />
 </Map>
+
+<style>
+  :global(body) {
+    margin: 0;
+    padding: 0;
+  }
+</style>
