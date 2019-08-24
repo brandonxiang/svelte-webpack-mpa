@@ -43,10 +43,6 @@ function multiHtmlPlugin(entries) {
   });
 }
 
-const babelLoader = {
-  loader: 'babel-loader',
-};
-
 module.exports = function(env) {
   const entry = getEntries();
 
@@ -65,9 +61,15 @@ module.exports = function(env) {
     module: {
       rules: [
         {
+          // https://github.com/sveltejs/svelte/issues/717
+          test: /\.m?js$/,
+          use: 'babel-loader',
+        },
+        {
           test: /\.svelte$/,
           exclude: /node_modules/,
           use: [
+            { loader: 'babel-loader' },
             {
               loader: 'svelte-loader',
               options: {
@@ -79,11 +81,6 @@ module.exports = function(env) {
               },
             },
           ],
-        },
-        {
-          test: /\.js$/,
-          use: [babelLoader],
-          exclude: /node_modules\/(?!svelte)/,
         },
         {
           test: /\.css$/,
