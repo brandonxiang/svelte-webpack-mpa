@@ -7,6 +7,6 @@ const app = new App({
   },
 });
 
-window.app = app
+window.app = app;
 
 export default app;

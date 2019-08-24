@@ -55,10 +55,12 @@
   },
   "lint-staged": {
     "**/*.svelte": [
-      "prettier --write --svelte-sort-order scripts-markup-styles ./**/*.svelte"
+      "prettier --write --svelte-sort-order scripts-markup-styles ./**/*.svelte",
+      "git add"
     ],
     "**/*.js": [
-      "prettier --write"
+      "prettier --write",
+      "git add"
     ]
   }
 }
