@@ -48,6 +48,10 @@ yarn analyze
 npm run analyze
 ```
 
+## Preprocess
+
+Preprocess is the most interesting API of svelte. Therefore, [svelte-preprocess](https://github.com/kaisermann/svelte-preprocess) is included in the project. Postcss is essential for autoprefixer. Other style preprocessers, like sass, could be setted by yourself. 
+
 ## LICENSE
 
 [MIT](./LICENSE) @brandonxiang
