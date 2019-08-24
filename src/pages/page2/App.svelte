@@ -1,11 +1,26 @@
 <script>
-	export let name;
+  import Map from './Map.svelte';
+  import MapMarker from './MapMarker.svelte';
 </script>
 
 <style>
-	h1 {
-		color: purple;
-	}
+  :global(body) {
+    margin: 0;
+    padding: 0;
+  }
 </style>
 
-<h1>Hello {name}!</h1>
+<Map lat={35} lon={-84} zoom={3.5}>
+  <MapMarker lat={37.8225} lon={-122.0024} label="Svelte Body Shaping" />
+  <MapMarker
+    lat={33.8981}
+    lon={-118.4169}
+    label="Svelte Barbershop & Essentials" />
+  <MapMarker lat={29.723} lon={-95.4189} label="Svelte Waxing Studio" />
+  <MapMarker
+    lat={28.3378}
+    lon={-81.3966}
+    label="Svelte 30 Nutritional Consultants" />
+  <MapMarker lat={40.6483} lon={-74.0237} label="Svelte Brands LLC" />
+  <MapMarker lat={40.6986} lon={-74.41} label="Svelte Medical Systems" />
+</Map>
