@@ -1,20 +1,54 @@
 <script>
-  export let name;
+  import { onMount } from 'svelte';
+
+  let canvas;
+  let running = false;
+
+  const r = Math.random();
+
+  onMount(() => {
+    const ctx = canvas.getContext('2d');
+    let frame;
+
+    (function loop() {
+      frame = requestAnimationFrame(loop);
+
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+      for (let p = 0; p < imageData.data.length; p += 4) {
+        const i = p / 4;
+        const x = i % canvas.width;
+        const y = (i / canvas.height) >>> 0;
+
+        const t = window.performance.now();
+
+        const r = 64 + (128 * x) / canvas.width + 64 * Math.sin(t / 1000);
+        const g = 64 + (128 * y) / canvas.height + 64 * Math.cos(t / 1000);
+        const b = 128;
+
+        imageData.data[p + 0] = r;
+        imageData.data[p + 1] = g;
+        imageData.data[p + 2] = b;
+        imageData.data[p + 3] = 255;
+      }
+
+      ctx.putImageData(imageData, 0, 0);
+    })();
+
+    return () => {
+      cancelAnimationFrame(frame);
+    };
+  });
 </script>
 
-<div class="id">
-  <h1>Hello {name}!</h1>
-</div>
+<canvas bind:this={canvas} />
 
 <style>
-  h1 {
-    color: white;
-  }
-
-  .id {
-    display: flex;
-    transition: all 0.5s;
-    user-select: none;
-    background: linear-gradient(to bottom, white, black);
+  canvas {
+    width: 100%;
+    height: 100%;
+    background-color: #666;
+    -webkit-mask: url(/public/logo-mask.svg) 50% 50% no-repeat;
+    mask: url(/public/logo-mask.svg) 50% 50% no-repeat;
   }
 </style>

@@ -30,6 +30,8 @@ yarn dev
 npm run dev
 ```
 
+`http://localhost:9000/page1.html` is the first page. `http://localhost:9000/page2.html` is the second page.
+
 ## Build
 
 Because of the extremely small bundle size of Svelte App, the common chunk for multi-pages is unneccessary to build. Each page has its own js bundle, or you can change webpack config by yourself. 
@@ -54,7 +56,7 @@ Preprocess is the most interesting API of svelte. Therefore, [svelte-preprocess]
 
 ## How to integate with vscode?
 
-[document](https://github.com/sveltejs/eslint-plugin-svelte3/blob/master/INTEGRATIONS.md)
+[OFFICAL INTEGRATIONS](https://github.com/sveltejs/eslint-plugin-svelte3/blob/master/INTEGRATIONS.md)
 
 ## LICENSE
 

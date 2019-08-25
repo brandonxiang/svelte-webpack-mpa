@@ -109,10 +109,10 @@ module.exports = function(env) {
     ],
     devtool: prod ? false : 'source-map',
     devServer: {
-      contentBase: path.join(__dirname, 'dist'),
+      contentBase: path.join(__dirname, 'public'),
       compress: true,
       port: 9000,
-      open: true,
+      open: false,
     },
   };
 
