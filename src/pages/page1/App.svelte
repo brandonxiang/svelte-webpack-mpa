@@ -48,7 +48,7 @@
     width: 100%;
     height: 100%;
     background-color: #666;
-    -webkit-mask: url(/public/logo-mask.svg) 50% 50% no-repeat;
-    mask: url(/public/logo-mask.svg) 50% 50% no-repeat;
+    -webkit-mask: url(/public/static/logo-mask.svg) 50% 50% no-repeat;
+    mask: url(/public/static/logo-mask.svg) 50% 50% no-repeat;
   }
 </style>

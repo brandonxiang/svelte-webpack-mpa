@@ -55,8 +55,8 @@ module.exports = function(env) {
     },
     output: {
       path: path.join(__dirname, 'dist'),
-      filename: '[name].js',
-      chunkFilename: '[name].[id].js',
+      filename: 'public/js/[name].[chunkhash].js',
+      chunkFilename: 'public/js/[name].[chunkhash].js',
     },
     module: {
       rules: [
@@ -93,14 +93,38 @@ module.exports = function(env) {
             'css-loader',
           ],
         },
+        {
+          test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            name: 'public/img/[name].[hash:7].[ext]',
+          },
+        },
+        {
+          test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            name: 'public/media/[name].[hash:7].[ext]',
+          },
+        },
+        {
+          test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            name: 'public/fonts/[name].[hash:7].[ext]',
+          },
+        },
       ],
     },
     mode,
     plugins: [
       new MiniCssExtractPlugin({
-        filename: '[name].css',
+        filename: 'public/css/[name].[contenthash].css',
       }),
-      new CopyPlugin([{ from: './public', to: './public' }]),
+      new CopyPlugin([{ from: './public/static', to: './public/static' }]),
       ...htmlPlugins,
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
