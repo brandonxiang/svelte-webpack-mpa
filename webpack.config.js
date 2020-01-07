@@ -63,11 +63,12 @@ module.exports = function(env) {
         {
           // https://github.com/sveltejs/svelte/issues/717
           test: /\.m?js$/,
+          exclude: /node_modules\/(?!svelte)/,
           use: 'babel-loader',
         },
         {
           test: /\.svelte$/,
-          exclude: /node_modules/,
+          exclude: /node_modules\/(?!svelte)/,
           use: [
             { loader: 'babel-loader' },
             {
