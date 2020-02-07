@@ -24,6 +24,7 @@
     "lint-staged": "^9.2.3",
     "mini-css-extract-plugin": "^0.6.0",
     "prettier": "^1.18.2",
+    "prettier-plugin-svelte": "^0.7.0",
     "style-loader": "^0.23.1",
     "svelte-loader": "2.13.3",
     "svelte-preprocess": "^2.15.1",
@@ -41,7 +42,6 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.7.7",
-    "prettier-plugin-svelte": "^0.7.0",
     "svelte": "^3.0.0"
   },
   "browserslist": [
