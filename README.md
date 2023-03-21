@@ -58,6 +58,10 @@ Preprocess is the most interesting API of svelte. Therefore, [svelte-preprocess]
 
 [OFFICAL INTEGRATIONS](https://github.com/sveltejs/eslint-plugin-svelte3/blob/master/INTEGRATIONS.md)
 
+## Changelog
+
+- babel is not essential. So we remove babel-loader
+
 ## LICENSE
 
 [MIT](./LICENSE) @brandonxiang

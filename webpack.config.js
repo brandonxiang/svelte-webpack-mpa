@@ -5,6 +5,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 const path = require('path');
 const globby = require('globby');
+const sveltePreprocess = require('svelte-preprocess');
 
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
@@ -13,7 +14,7 @@ function getEntries() {
   try {
     const entries = {};
     const allEntry = globby.sync('src/pages/**/main.js');
-    allEntry.forEach(entry => {
+    allEntry.forEach((entry) => {
       const res = entry.match(/src\/pages\/(\w+)\/main\.js/);
       if (res.length) {
         entries[res[1]] = `./${entry}`;
@@ -43,9 +44,9 @@ function multiHtmlPlugin(entries) {
   });
 }
 
-module.exports = function(env) {
-  const entry = getEntries();
 
+module.exports = function (env) {
+  const entry = getEntries();
   const htmlPlugins = multiHtmlPlugin(entry);
 
   const config = {
@@ -53,10 +54,11 @@ module.exports = function(env) {
     target: ['web'],
     resolve: {
       alias: {
-        svelte: path.dirname(require.resolve('svelte/package.json'))
+        svelte: path.resolve('node_modules', 'svelte'),
       },
       extensions: ['.mjs', '.js', '.svelte'],
-      mainFields: ['svelte', 'browser', 'module', 'main']
+      mainFields: ['svelte', 'browser', 'module', 'main'],
+      conditionNames: ['svelte'],
     },
     output: {
       path: path.join(__dirname, 'dist'),
@@ -66,40 +68,39 @@ module.exports = function(env) {
     module: {
       rules: [
         {
-          // https://github.com/sveltejs/svelte/issues/717
-          test: /\.m?js$/,
-          exclude: /node_modules\/(?!svelte)/,
-          use: 'babel-loader',
+          test: /\.(svelte)$/,
+          use: {
+            loader: 'svelte-loader',
+            options: {
+
+              compilerOptions: {
+                dev: !prod
+              },
+              emitCss: prod,
+              hotReload: !prod,
+              preprocess: sveltePreprocess({
+                postcss: true,
+              }),
+            },
+          },
         },
         {
-          test: /\.svelte$/,
-          exclude: /node_modules\/(?!svelte)/,
-          use: [
-            { loader: 'babel-loader' },
-            {
-              loader: 'svelte-loader',
-              options: {
-                compilerOptions: {
-                  dev: !prod
-                },
-                emitCss: prod,
-                hotReload: !prod,
-                preprocess: require('svelte-preprocess')({
-                  postcss: true,
-                }),
-              },
-            },
-          ],
+          // required to prevent errors from Svelte on Webpack 5+, omit on Webpack 4
+          test: /node_modules\/svelte\/.*\.mjs$/,
+          resolve: {
+            fullySpecified: false,
+          },
         },
         {
           test: /\.css$/,
           use: [
-            /**
-             * MiniCssExtractPlugin doesn't support HMR.
-             * For developing, use 'style-loader' instead.
-             * */
-             MiniCssExtractPlugin.loader,
-            'css-loader',
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                url: false, // necessary if you use url('/path/to/some/asset.png|jpg|gif')
+              },
+            },
           ],
         },
         {
@@ -126,13 +127,6 @@ module.exports = function(env) {
             name: 'public/fonts/[name].[hash:7].[ext]',
           },
         },
-        {
-          // required to prevent errors from Svelte on Webpack 5+
-          test: /node_modules\/svelte\/.*\.mjs$/,
-          resolve: {
-            fullySpecified: false
-          }
-        }
       ],
     },
     mode,
@@ -141,7 +135,7 @@ module.exports = function(env) {
         filename: 'public/css/[name].[contenthash].css',
       }),
       new CopyPlugin({
-        patterns: [{ from: './public/static', to: './public/static' }]
+        patterns: [{ from: './public/static', to: './public/static' }],
       }),
       ...htmlPlugins,
       new BundleAnalyzerPlugin({
@@ -152,7 +146,9 @@ module.exports = function(env) {
     devtool: prod ? false : 'source-map',
     devServer: {
       hot: true,
-      contentBase: path.join(__dirname, 'public'),
+      static: {
+        directory: path.join(__dirname, 'public'),
+      },
       compress: true,
       port: 9000,
       open: false,
